@@ -23,6 +23,7 @@ public class AbiRecord {
 	   resize for us. So instead of having to know the total number of songs
 	   in advance, or having to create a new array and update when our size 
 	   changes, a Java arraylist will resize for us under the hood. 
+	   Docs: https://docs.oracle.com/javase/8/docs/api/java/util/ArrayList.html
 	*/
 	private ArrayList<AbiSong> sideAsongs;
 	private ArrayList<AbiSong> sideBsongs;
@@ -56,37 +57,56 @@ public class AbiRecord {
 	
 	// Add a song implementation, and allow users to add songs to the record
 	public boolean addSong(String name, int totalSeconds, char side) {
-		if (side != 'a' && side != 'b') {
-			// invalid side, we can't add a song
+		// preconditions: verify side validity
+		if (!sideCheck(side)) {
 			return false;
 		}
 		
 		AbiSong newSong = new AbiSong(name, totalSeconds);
 		if (side == 'a') {
 			this.sideAsongs.add(newSong);
-			return true;
 		} else {
 			this.sideBsongs.add(newSong);
-			return true;
 		}
+		return true;
 	}
 	
 	// Remove a song implementation, and allow users to remove songs 
 	//   from the record based on song index
-	public boolean addRemoveSong(int songIndex, char side) {
-		if (side != 'a' && side != 'b') {
-			// invalid side, we can't remove a song
+	public boolean removeSong(int songIndex, char side) {
+		// preconditions: verify side validity
+		if (!sideCheck(side)) {
 			return false;
 		}
 		
 		
 		if (side == 'a') {
 			this.sideAsongs.remove(songIndex);
-			return true;
 		} else {
 			this.sideBsongs.remove(songIndex);
-			return true;
 		}
+		return true;
+	}
+	
+	public boolean updateSong(int songIndex, String name, int totalSeconds, char side) {
+		// preconditions: verify side validity
+		if (!sideCheck(side)) {
+			return false;
+		}
+		
+		AbiSong newSong = new AbiSong(name, totalSeconds);
+		if (side == 'a') {
+			this.sideAsongs.set(songIndex, newSong);
+			
+		} else {
+			this.sideBsongs.set(songIndex, newSong);
+		}
+		return true;
+	}
+	
+	// checks whether the given char is 'a' or 'b' aka a valid record side
+	private boolean sideCheck(char side) {
+		return (side == 'a' || side == 'b');
 	}
 	
 	
