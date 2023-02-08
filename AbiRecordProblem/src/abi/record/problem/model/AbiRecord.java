@@ -4,16 +4,17 @@ import java.util.ArrayList;
 
 
 public class AbiRecord {
-	public enum AbiRecordEnum {
-		SMALL, MEDIUM, LARGE, EXTRALARGE
-	};
 	// Sizes / Seconds / Minutes:
 	//		SECONDS: 360, 600, 720, 900
 	//      MINS: 6, 10, 12, 15
+	public enum AbiRecordEnum {
+		SMALL, MEDIUM, LARGE, EXTRALARGE
+	};
 	
 	AbiRecordEnum recordSize;
-	int totalTimeSeconds;
+	int totalTimeSecondsPerSide;
 	double price;
+	
 	/* NOTE: A Java arraylist is very similar to an array, but uses methods
 	   instead of direct indexing. For adding you will do songs.add(x)
 	   instead of songs[0] = x. The main thing that changes is that you use 
@@ -36,13 +37,13 @@ public class AbiRecord {
 		
 		switch (recordSize) {
 			case SMALL:
-				this.totalTimeSeconds = 360; // 360 seconds, 6 mins
+				this.totalTimeSecondsPerSide = 360; // 360 seconds, 6 mins
 			case MEDIUM:
-				this.totalTimeSeconds =  600; // 600 seconds, 10 mins
+				this.totalTimeSecondsPerSide =  600; // 600 seconds, 10 mins
 			case LARGE:
-				this.totalTimeSeconds =  720; // 720 seconds, 12 mins
+				this.totalTimeSecondsPerSide =  720; // 720 seconds, 12 mins
 			case EXTRALARGE:
-				this.totalTimeSeconds =  900; // 900 seconds, 15 mins
+				this.totalTimeSecondsPerSide =  900; // 900 seconds, 15 mins
 		}
 	}
 	
@@ -61,6 +62,9 @@ public class AbiRecord {
 		if (!sideCheck(side)) {
 			return false;
 		}
+		
+		// TODO: add in logic to prevent updating a song if the time of the song
+		//   is too long and will not fit in the record side total size
 		
 		AbiSong newSong = new AbiSong(name, totalSeconds);
 		if (side == 'a') {
@@ -94,6 +98,9 @@ public class AbiRecord {
 			return false;
 		}
 		
+		// TODO: add in logic to prevent updating a song if the time of the song
+		//   is too long and will not fit in the record side total size
+		
 		AbiSong newSong = new AbiSong(name, totalSeconds);
 		if (side == 'a') {
 			this.sideAsongs.set(songIndex, newSong);
@@ -107,6 +114,29 @@ public class AbiRecord {
 	// checks whether the given char is 'a' or 'b' aka a valid record side
 	private boolean sideCheck(char side) {
 		return (side == 'a' || side == 'b');
+	}
+	
+	private int getCurrentSecondsForSide(char side) {
+		// preconditions: verify side validity
+		if (!sideCheck(side)) {
+			return -1;
+		}
+		
+		int tempSum = 0;
+		
+		if (side == 'a') {
+			for (int i = 0; i < this.sideAsongs.size(); i++) {
+				int tempSongSeconds = this.sideAsongs.get(i).getTotalSeconds();
+				tempSum += tempSongSeconds;
+			}
+		} else {
+			for (int i = 0; i < this.sideBsongs.size(); i++) {
+				int tempSongSeconds = this.sideBsongs.get(i).getTotalSeconds();
+				tempSum += tempSongSeconds;
+			}
+		}
+		return tempSum;
+		
 	}
 	
 	
