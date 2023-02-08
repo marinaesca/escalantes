@@ -1,6 +1,6 @@
 package abi.record.problem.model;
 
-import java.util.Dictionary;
+import java.util.ArrayList;
 
 
 public class AbiRecord {
@@ -11,34 +11,42 @@ public class AbiRecord {
 	//		SECONDS: 360, 600, 720, 900
 	//      MINS: 6, 10, 12, 15
 	
-	AbiRecordEnum record_size;
-	int total_time_seconds;
+	AbiRecordEnum recordSize;
+	int totalTimeSeconds;
 	double price;
-	private Dictionary<String, Integer> songs;
+	/* NOTE: A Java arraylist is very similar to an array, but uses methods
+	   instead of direct indexing. For adding you will do songs.add(x)
+	   instead of songs[0] = x. The main thing that changes is that you use 
+	   methods instead of brackets to index into the array directly. For 
+	   example to access a value you will do songs.get(index). The reason we
+	   are using a list instead of a regular Java array is because it will
+	   resize for us. So instead of having to know the total number of songs
+	   in advance, or having to create a new array and update when our size 
+	   changes, a Java arraylist will resize for us under the hood. 
+	*/
+	private ArrayList<AbiSong> sideAsongs;
+	private ArrayList<AbiSong> sideBsongs;
 	
-	// Phase 2: update songs to be sideasongs and sidebsongs
-	// private Dictionary<String, Integer> sideasongs;
-	// private Dictionary<String, Integer> sidebsongs;
 	
 	// CONSTRUCTOR - creates a new AbiRecord with details and can be given a tracklist
-	public AbiRecord(AbiRecordEnum record_size, double price) {
-		this.record_size = record_size;
+	public AbiRecord(AbiRecordEnum recordSize, double price) {
+		this.recordSize = recordSize;
 		this.price = price;
 		
-		switch (record_size) {
+		switch (recordSize) {
 			case SMALL:
-				this.total_time_seconds = 360; // 360 seconds, 6 mins
+				this.totalTimeSeconds = 360; // 360 seconds, 6 mins
 			case MEDIUM:
-				this.total_time_seconds =  600; // 600 seconds, 10 mins
+				this.totalTimeSeconds =  600; // 600 seconds, 10 mins
 			case LARGE:
-				this.total_time_seconds =  720; // 720 seconds, 12 mins
+				this.totalTimeSeconds =  720; // 720 seconds, 12 mins
 			case EXTRALARGE:
-				this.total_time_seconds =  900; // 900 seconds, 15 mins
+				this.totalTimeSeconds =  900; // 900 seconds, 15 mins
 		}
 	}
 	
 	public boolean isEmpty() {
-		return songs.isEmpty();
+		return sideAsongs.isEmpty() && sideBsongs.isEmpty();
 	}
 	
 	// temp example: size = small
@@ -46,11 +54,39 @@ public class AbiRecord {
 	
 	
 	
-	// TODO: -------------------------
 	// Add a song implementation, and allow users to add songs to the record
-	// Phase 2: allow for adding to a particular side (side A or side B)
-	public void addSong() {
+	public boolean addSong(String name, int totalSeconds, char side) {
+		if (side != 'a' && side != 'b') {
+			// invalid side, we can't add a song
+			return false;
+		}
 		
+		AbiSong newSong = new AbiSong(name, totalSeconds);
+		if (side == 'a') {
+			this.sideAsongs.add(newSong);
+			return true;
+		} else {
+			this.sideBsongs.add(newSong);
+			return true;
+		}
+	}
+	
+	// Remove a song implementation, and allow users to remove songs 
+	//   from the record based on song index
+	public boolean addRemoveSong(int songIndex, char side) {
+		if (side != 'a' && side != 'b') {
+			// invalid side, we can't remove a song
+			return false;
+		}
+		
+		
+		if (side == 'a') {
+			this.sideAsongs.remove(songIndex);
+			return true;
+		} else {
+			this.sideBsongs.remove(songIndex);
+			return true;
+		}
 	}
 	
 	
