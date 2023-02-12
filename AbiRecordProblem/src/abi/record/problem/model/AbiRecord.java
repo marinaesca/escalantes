@@ -7,6 +7,7 @@ public class AbiRecord {
 	
 	RecordSize recordSize;
 	int totalTimeSecondsPerSide;
+	int totalCurrentSeconds;
 	double price;
 	
 	/* NOTE: A Java arraylist is very similar to an array, but uses methods
@@ -55,8 +56,8 @@ public class AbiRecord {
 			return false;
 		}
 		
-		// TODO: add in logic to prevent updating a song if the time of the song
-		//   is too long and will not fit in the record side total size
+		// TODO: add in logic to prevent updating a song if the time of the
+		//   song is too long and will not fit in the record side total size
 		
 		AbiSong newSong = new AbiSong(name, totalSeconds);
 		if (side == 'a') {
@@ -108,6 +109,7 @@ public class AbiRecord {
 		return (side == 'a' || side == 'b');
 	}
 	
+	// 
 	private int getCurrentSecondsForSide(char side) {
 		// preconditions: verify side validity
 		if (!sideCheck(side)) {
@@ -134,6 +136,5 @@ public class AbiRecord {
 	public double getPrice() {
 		return this.price;
 	}
-	
 	
 }

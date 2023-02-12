@@ -23,9 +23,10 @@ public enum RecordSize {
 		return minutes;
 	}
 	
-	// NOTE: Sizes / Seconds / Minutes:
-	//		SECONDS: 360, 600, 720, 900
-	//      MINS: 6, 10, 12, 15
+	/* NOTE: Sizes / Seconds / Minutes:
+	 *    SECONDS: 360, 600, 720, 900
+	 *    MINS: 6, 10, 12, 15
+	 */
 	public int seconds() {
 		return seconds;
 	}

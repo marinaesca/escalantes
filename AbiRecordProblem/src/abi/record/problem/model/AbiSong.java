@@ -1,6 +1,9 @@
 package abi.record.problem.model;
 
 public class AbiSong {
+	/* Note: useful resource on understanding enums
+	 * https://dev.to/kylec32/effective-java-use-enums-instead-of-int-constants-5de3
+	 */
 	
 	int totalTimeSeconds;
 	String songName;
