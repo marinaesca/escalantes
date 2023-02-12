@@ -4,14 +4,8 @@ import java.util.ArrayList;
 
 
 public class AbiRecord {
-	// Sizes / Seconds / Minutes:
-	//		SECONDS: 360, 600, 720, 900
-	//      MINS: 6, 10, 12, 15
-	public enum AbiRecordEnum {
-		SMALL, MEDIUM, LARGE, EXTRALARGE
-	};
 	
-	AbiRecordEnum recordSize;
+	RecordSize recordSize;
 	int totalTimeSecondsPerSide;
 	double price;
 	
@@ -31,30 +25,28 @@ public class AbiRecord {
 	
 	
 	// CONSTRUCTOR - creates a new AbiRecord with details and can be given a tracklist
-	public AbiRecord(AbiRecordEnum recordSize, double price) {
+	public AbiRecord(RecordSize recordSize) {
 		this.recordSize = recordSize;
-		this.price = price;
 		
 		switch (recordSize) {
 			case SMALL:
-				this.totalTimeSecondsPerSide = 360; // 360 seconds, 6 mins
+				this.totalTimeSecondsPerSide = RecordSize.SMALL.seconds();
+				this.price = RecordSize.SMALL.price();
 			case MEDIUM:
-				this.totalTimeSecondsPerSide =  600; // 600 seconds, 10 mins
+				this.totalTimeSecondsPerSide = RecordSize.MEDIUM.seconds();
+				this.price = RecordSize.MEDIUM.price();
 			case LARGE:
-				this.totalTimeSecondsPerSide =  720; // 720 seconds, 12 mins
+				this.totalTimeSecondsPerSide =  RecordSize.LARGE.seconds();
+				this.price = RecordSize.LARGE.price();
 			case EXTRALARGE:
-				this.totalTimeSecondsPerSide =  900; // 900 seconds, 15 mins
+				this.totalTimeSecondsPerSide =  RecordSize.EXTRALARGE.seconds();
+				this.price = RecordSize.EXTRALARGE.price();
 		}
 	}
 	
 	public boolean isEmpty() {
 		return sideAsongs.isEmpty() && sideBsongs.isEmpty();
 	}
-	
-	// temp example: size = small
-	//  size: small, total_time: 6 minutes: total_time_seconds: 360, price: $10
-	
-	
 	
 	// Add a song implementation, and allow users to add songs to the record
 	public boolean addSong(String name, int totalSeconds, char side) {
@@ -137,6 +129,10 @@ public class AbiRecord {
 		}
 		return tempSum;
 		
+	}
+	
+	public double getPrice() {
+		return this.price;
 	}
 	
 	
