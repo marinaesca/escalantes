@@ -2,6 +2,8 @@ package abi.record.problem.model;
 
 import java.util.Scanner;
 
+import java.awt.*;
+
 public class AbiRecordMain {
 	public static final Scanner reader = new Scanner(System.in);
 	
@@ -9,6 +11,18 @@ public class AbiRecordMain {
 		
 		printIntroAndDescription();
 		RecordSize recordSize = inputSizeSelection();
+		
+		/* GRAPHICS / 2D VISUALS
+		 * Simple Java oracle docs references:
+		 *    https://docs.oracle.com/javase/tutorial/2d/basic2d/index.html
+		 * Best comprehensive reference: 
+		 *    https://books.trinket.io/thinkjava/appendix-b.html
+		 * Java Swing API Visual:
+		 *    https://www.javatpoint.com/java-swing#:~:text=Hierarchy%20of%20Java%20Swing%20classes
+		 */
+		
+		DrawingPanel p1 = new DrawingPanel(1200, 600);
+		Graphics g = p1.getGraphics();
 	}
 	
 	public static void printIntroAndDescription() {
