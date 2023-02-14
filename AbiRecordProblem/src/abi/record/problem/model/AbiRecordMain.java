@@ -2,7 +2,8 @@ package abi.record.problem.model;
 
 import java.util.Scanner;
 
-import java.awt.*;
+//import java.awt.*;
+import javax.swing.*;
 
 public class AbiRecordMain {
 	public static final Scanner reader = new Scanner(System.in);
@@ -11,6 +12,10 @@ public class AbiRecordMain {
 		
 		printIntroAndDescription();
 		RecordSize recordSize = inputSizeSelection();
+		visuals();
+	}
+	
+	public static void visuals() {
 		
 		/* GRAPHICS / 2D VISUALS
 		 * Simple Java oracle docs references:
@@ -21,13 +26,22 @@ public class AbiRecordMain {
 		 *    https://www.javatpoint.com/java-swing#:~:text=Hierarchy%20of%20Java%20Swing%20classes
 		 */
 		
-		DrawingPanel p1 = new DrawingPanel(1200, 600);
-		Graphics g = p1.getGraphics();
+//		DrawingPanel p1 = new DrawingPanel(1200, 600);
+//		Graphics g = p1.getGraphics();
+		
+//		JFrame f= new JFrame();  
+//        JTextArea area=new JTextArea(AbiProblemText.getIntroAndDescriptionText());  
+//        area.setBounds(10,30, 200,200);  
+//        f.add(area);  
+//        f.setSize(300,300);  
+//        f.setLayout(null);  
+//        f.setVisible(true);  
+		
+		
 	}
 	
 	public static void printIntroAndDescription() {
-		System.out.println("Welcome, please select a record size to start \n");
-		System.out.println("Here are our record options: ");
+		System.out.println(AbiProblemText.getIntroAndDescriptionText());
 		
 		
 		/* TODO: @ABI prettify this by making the spacing between size, 
